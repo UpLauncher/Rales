@@ -17,10 +17,10 @@ index 1b701beeac0cf2a3fe01a09601318e59316131d7..6e4274ac868e744c63e6faece2bbf371
  
          if (environment.includeIntegrated) {
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index 65264b8eb968870e4adb566735f8847a7c316e64..a128c831232ad8a7f6e0166103dc3ab79dc82603 100644
+index f9f089360640a46fa4c71839185ea6523925a763..9481d4d4b839dca720e1ce2a2feadc7e4a03cc56 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
-@@ -1062,6 +1062,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+@@ -1059,6 +1059,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
          this.safeShutdown(waitForShutdown, false);
      }
      public void safeShutdown(boolean waitForShutdown, boolean isRestarting) {
@@ -103,7 +103,7 @@ index 338808ba1138f62d89f3f1338a4c5068426df0e4..f2a7eba2618ea9c1acaf93c0ef8f6f5f
  
          entityplayer.awardStat(Stats.LEAVE_GAME);
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurConfig.java b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-index 62f34324517f13df04b206a82373dbf237f3248c..e8addf65f2980ec325364c534ff72f4a0a6b2a6b 100644
+index d493d6a4b613c6881c5be231fcf751048c2fe3a2..fb8fb45d87ffe23e005bd9bc2d3cebc92b9ff478 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
 @@ -182,6 +182,7 @@ public class PurpurConfig {
@@ -121,7 +121,7 @@ index 62f34324517f13df04b206a82373dbf237f3248c..e8addf65f2980ec325364c534ff72f4a
 +        tpsbarCommandOutput = getString("settings.messages.tpsbar-command-output", tpsbarCommandOutput);
      }
  
-     public static String serverModName = "Purpur";
+     public static String serverModName = io.papermc.paper.ServerBuildInfo.buildInfo().brandName();
 @@ -214,6 +216,29 @@ public class PurpurConfig {
          disableGiveCommandDrops = getBoolean("settings.disable-give-dropping", disableGiveCommandDrops);
      }

@@ -29,7 +29,7 @@ index c38e4ebedf333454583b3cb66300ceeab4562a18..bb046b4afb38ba735bb772961ed51fb5
                  if (scoreboardteam.getDeathMessageVisibility() == Team.Visibility.HIDE_FOR_OTHER_TEAMS) {
                      this.server.getPlayerList().broadcastSystemToTeam(this, ichatbasecomponent);
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurConfig.java b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-index a55ed3a9b72626ef4ed7b789a11bdbdced0b2082..ad2ef9112046927efa216eab079ceed049a82881 100644
+index 3e9d4f1f4752ddfeab494127460f7e5095673296..c3cc0ab21b7506e51e8d48a934705c0e6b43553f 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
 @@ -203,6 +203,18 @@ public class PurpurConfig {
@@ -48,6 +48,6 @@ index a55ed3a9b72626ef4ed7b789a11bdbdced0b2082..ad2ef9112046927efa216eab079ceed0
 +        deathMessageOnlyBroadcastToAffectedPlayer = getBoolean("settings.broadcasts.death.only-broadcast-to-affected-player", deathMessageOnlyBroadcastToAffectedPlayer);
 +    }
 +
-     public static String serverModName = "Purpur";
+     public static String serverModName = io.papermc.paper.ServerBuildInfo.buildInfo().brandName();
      private static void serverModName() {
          serverModName = getString("settings.server-mod-name", serverModName);

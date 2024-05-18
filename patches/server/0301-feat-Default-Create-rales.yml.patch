@@ -5,10 +5,10 @@ Subject: [PATCH] feat: Default Create rales.yml
 
 
 diff --git a/src/main/java/org/bukkit/craftbukkit/Main.java b/src/main/java/org/bukkit/craftbukkit/Main.java
-index a0a7bfe8f5a40b945b83096de1efd650adeb9ee3..d73173b97a40ce9f6a4b6a2d0c1e636d956a27da 100644
+index 6d8e9cf4ee496b8748654e792ce438f512c3d946..2bf9d5b48575ddc60d8c5ca86dda7eb9ef3c5369 100644
 --- a/src/main/java/org/bukkit/craftbukkit/Main.java
 +++ b/src/main/java/org/bukkit/craftbukkit/Main.java
-@@ -183,6 +183,14 @@ public class Main {
+@@ -184,6 +184,14 @@ public class Main {
                      .describedAs("Yml file");
                  // Purpur end
  

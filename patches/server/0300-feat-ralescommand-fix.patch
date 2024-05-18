@@ -5,10 +5,10 @@ Subject: [PATCH] feat: ralescommand fix(?)
 
 
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index 0434f0ead07103e725b5f95cb935d526f742f2b9..d1d27cec24c334594b8f8aada230a09ba07380ba 100644
+index 3dc42cef933d8e5b5e68052b8201131d2bd9de9f..b9b212834ea55da3ee8266957ffd7bd5d3cb027d 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-@@ -1053,6 +1053,7 @@ public final class CraftServer implements Server {
+@@ -1048,6 +1048,7 @@ public final class CraftServer implements Server {
          org.spigotmc.SpigotConfig.init((File) this.console.options.valueOf("spigot-settings")); // Spigot
          this.console.paperConfigurations.reloadConfigs(this.console);
          org.purpurmc.purpur.PurpurConfig.init((File) console.options.valueOf("purpur-settings")); // Purpur

@@ -5,10 +5,10 @@ Subject: [PATCH] feat: Rales (beta)
 
 
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index b82c66c402823874e3a5fc9bb7b1df73c708aec5..0434f0ead07103e725b5f95cb935d526f742f2b9 100644
+index ccdf1b7b86895fe469476112277b5f76f7f02bf0..3dc42cef933d8e5b5e68052b8201131d2bd9de9f 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-@@ -1086,6 +1086,7 @@ public final class CraftServer implements Server {
+@@ -1081,6 +1081,7 @@ public final class CraftServer implements Server {
          org.spigotmc.SpigotConfig.registerCommands(); // Spigot
          io.papermc.paper.command.PaperCommands.registerCommands(this.console); // Paper
          org.purpurmc.purpur.PurpurConfig.registerCommands(); // Purpur
