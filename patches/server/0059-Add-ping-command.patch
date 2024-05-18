@@ -5,7 +5,7 @@ Subject: [PATCH] Add ping command
 
 
 diff --git a/src/main/java/net/minecraft/commands/Commands.java b/src/main/java/net/minecraft/commands/Commands.java
-index 5c7287ef8c2d59215aff81cb138a55676bfa6356..a5f1bfd8a6a6c374fbb72ea7957dd7d05073b93d 100644
+index 6b95a810c2fa17f18bd911dba2c5544caa39173d..5473408750eb39c1e05c0fa9ba0c1ff1818553ee 100644
 --- a/src/main/java/net/minecraft/commands/Commands.java
 +++ b/src/main/java/net/minecraft/commands/Commands.java
 @@ -252,6 +252,7 @@ public class Commands {
@@ -17,7 +17,7 @@ index 5c7287ef8c2d59215aff81cb138a55676bfa6356..a5f1bfd8a6a6c374fbb72ea7957dd7d0
  
          if (environment.includeIntegrated) {
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurConfig.java b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-index 909cfeba89c2370adc2eebf72ba8ad46d33bce7b..e8160e63470cf2f3d15eeb2e7f83d3694cfc4db8 100644
+index 16a52b5875934e3817dda26589b7443d614bc6ff..45e005a968916a01a2f08a75ef891d3dfe3994eb 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
 @@ -179,6 +179,7 @@ public class PurpurConfig {

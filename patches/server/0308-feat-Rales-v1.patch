@@ -1,0 +1,19 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Rai san <admin@raic.tech>
+Date: Sat, 18 May 2024 15:05:01 +0900
+Subject: [PATCH] feat: Rales v1
+
+
+diff --git a/src/main/java/com/destroystokyo/paper/PaperVersionFetcher.java b/src/main/java/com/destroystokyo/paper/PaperVersionFetcher.java
+index bd2f32336d8a3e7d145e6c600a4793a66d8b7591..3669f36aaf766589813062645d9d33f45cd3dc1f 100644
+--- a/src/main/java/com/destroystokyo/paper/PaperVersionFetcher.java
++++ b/src/main/java/com/destroystokyo/paper/PaperVersionFetcher.java
+@@ -87,7 +87,7 @@ public class PaperVersionFetcher implements VersionFetcher {
+         if (siteApiVersion == null) { return -1; }
+         try {
+             try (BufferedReader reader = Resources.asCharSource(
+-                new URL("http://localhost:3030/update/" + siteApiVersion), // Purpur // Rales
++                new URL("https://rales-api.raic.tech/update/" + siteApiVersion), // Purpur // Rales
+                 Charsets.UTF_8
+             ).openBufferedStream()) {
+                 JsonObject json = new Gson().fromJson(reader, JsonObject.class);

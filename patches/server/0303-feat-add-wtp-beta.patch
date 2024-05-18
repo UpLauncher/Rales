@@ -1,0 +1,84 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Rai san <admin@raic.tech>
+Date: Wed, 15 May 2024 20:41:38 +0900
+Subject: [PATCH] feat: add wtp (beta)
+
+
+diff --git a/src/main/java/net/minecraft/server/players/PlayerList.java b/src/main/java/net/minecraft/server/players/PlayerList.java
+index b863f6fe65c796a1d3102cc3eddb5d6c5becd3ac..54cdf0b6c848b8eae670811fb4849db93308f4ce 100644
+--- a/src/main/java/net/minecraft/server/players/PlayerList.java
++++ b/src/main/java/net/minecraft/server/players/PlayerList.java
+@@ -1,6 +1,5 @@
+ package net.minecraft.server.players;
+ 
+-import co.aikar.timings.MinecraftTimings;
+ import com.google.common.collect.Lists;
+ import com.google.common.collect.Maps;
+ import com.google.common.collect.Sets;
+@@ -111,7 +110,6 @@ import org.bukkit.Location;
+ import org.bukkit.craftbukkit.CraftServer;
+ import org.bukkit.craftbukkit.CraftWorld;
+ import org.bukkit.craftbukkit.entity.CraftPlayer;
+-import org.bukkit.craftbukkit.util.CraftChatMessage;
+ import org.bukkit.craftbukkit.util.CraftLocation;
+ import org.bukkit.entity.Player;
+ import org.bukkit.event.entity.EntityRemoveEvent;
+@@ -121,7 +119,7 @@ import org.bukkit.event.player.PlayerLoginEvent;
+ import org.bukkit.event.player.PlayerQuitEvent;
+ import org.bukkit.event.player.PlayerRespawnEvent;
+ import org.bukkit.event.player.PlayerRespawnEvent.RespawnReason;
+-import org.bukkit.event.player.PlayerSpawnChangeEvent;
++import tech.raic.wtp.PlayerJoined;
+ // CraftBukkit end
+ 
+ public abstract class PlayerList {
+@@ -271,6 +269,9 @@ public abstract class PlayerList {
+         org.spigotmc.event.player.PlayerSpawnLocationEvent ev = new com.destroystokyo.paper.event.player.PlayerInitialSpawnEvent(spawnPlayer, spawnPlayer.getLocation()); // Paper use our duplicate event
+         this.cserver.getPluginManager().callEvent(ev);
+ 
++        PlayerJoined pj = new PlayerJoined();
++        pj.onPlayerJoin(spawnPlayer);
++
+         Location loc = ev.getSpawnLocation();
+         worldserver1 = ((CraftWorld) loc.getWorld()).getHandle();
+ 
+diff --git a/src/main/java/tech/raic/RalesConfig.java b/src/main/java/tech/raic/RalesConfig.java
+index 4c470a96ec17360e18d91e8af7e7f794cb6a766e..a9b3d4e39fd0d8983d69dc4aa18048b5d3cee3ed 100644
+--- a/src/main/java/tech/raic/RalesConfig.java
++++ b/src/main/java/tech/raic/RalesConfig.java
+@@ -33,6 +33,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
+ import org.purpurmc.purpur.command.PurpurCommand;
+ import org.purpurmc.purpur.task.TPSBarTask;
+ 
++import static org.bukkit.Bukkit.getServer;
++
+ @SuppressWarnings("unused")
+ public class RalesConfig {
+     private static final String HEADER = "This is the main configuration file for Purpur.\n"
+diff --git a/src/main/java/tech/raic/wtp/PlayerJoined.java b/src/main/java/tech/raic/wtp/PlayerJoined.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..d965e6c49b39a453b1d23054ead5d15822789258
+--- /dev/null
++++ b/src/main/java/tech/raic/wtp/PlayerJoined.java
+@@ -0,0 +1,21 @@
++package tech.raic.wtp;
++
++import org.bukkit.entity.Player;
++import org.bukkit.event.EventHandler;
++import org.bukkit.event.Listener;
++import org.bukkit.event.player.PlayerJoinEvent;
++
++import net.md_5.bungee.api.ChatColor;
++
++public class PlayerJoined {
++    public void onPlayerJoin(Player player) {
++            var title = "a"; //wt.getConfig().getString("welcome-title.title");
++            var subtitle = "a"; //wt.getConfig().getString("welcome-title.sub-title");
++            var fadein = 20; //Integer.parseInt(wt.getConfig().getString("welcome-title.fadein"));
++            var stay = 70; //Integer.parseInt(wt.getConfig().getString("welcome-title.time"));
++            var fadeout = 20; //Integer.parseInt(wt.getConfig().getString("welcome-title.fadeout"));
++
++            player.sendTitle(ChatColor.translateAlternateColorCodes('&', title),
++                    ChatColor.translateAlternateColorCodes('&', subtitle), fadein, stay, fadeout);
++    }
++}

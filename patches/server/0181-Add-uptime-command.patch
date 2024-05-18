@@ -5,7 +5,7 @@ Subject: [PATCH] Add uptime command
 
 
 diff --git a/src/main/java/net/minecraft/commands/Commands.java b/src/main/java/net/minecraft/commands/Commands.java
-index e7fc2beba639e9a6b7fb815508332d3a9e12b666..91d84497dce51cf133a9f4f322b1088cb5ae1beb 100644
+index 6e4274ac868e744c63e6faece2bbf3713f47fce0..f11d6bb515217088ef1192653998a77ddce67edf 100644
 --- a/src/main/java/net/minecraft/commands/Commands.java
 +++ b/src/main/java/net/minecraft/commands/Commands.java
 @@ -255,6 +255,7 @@ public class Commands {

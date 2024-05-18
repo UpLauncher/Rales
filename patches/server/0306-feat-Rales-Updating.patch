@@ -1,0 +1,86 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Rai san <admin@raic.tech>
+Date: Thu, 16 May 2024 20:47:08 +0900
+Subject: [PATCH] feat: Rales Updating
+
+
+diff --git a/build.gradle.kts b/build.gradle.kts
+index 89f21e21efc5f5ab99d1586f4f3b8f2f3c48ac06..df4a35aa4c768ef00937561f97e4905f5dc5270c 100644
+--- a/build.gradle.kts
++++ b/build.gradle.kts
+@@ -76,13 +76,13 @@ tasks.jar {
+     manifest {
+         val git = Git(rootProject.layout.projectDirectory.path)
+         val gitHash = git("rev-parse", "--short=7", "HEAD").getText().trim()
+-        val implementationVersion = System.getenv("BUILD_NUMBER") ?: "\"$gitHash\""
++        val implementationVersion = System.getenv("BUILD_NUMBER") ?: "$gitHash"
+         val date = git("show", "-s", "--format=%ci", gitHash).getText().trim() // Paper
+         val gitBranch = git("rev-parse", "--abbrev-ref", "HEAD").getText().trim() // Paper
+         attributes(
+             "Main-Class" to "org.bukkit.craftbukkit.Main",
+             "Implementation-Title" to "CraftBukkit",
+-            "Implementation-Version" to "git-Purpur-$implementationVersion", // Pufferfish // Purpur
++            "Implementation-Version" to "git-Rales-$implementationVersion", // Pufferfish // Purpur // Rales
+             "Implementation-Vendor" to date, // Paper
+             "Specification-Title" to "Bukkit",
+             "Specification-Version" to project.version,
+diff --git a/src/main/java/com/destroystokyo/paper/PaperVersionFetcher.java b/src/main/java/com/destroystokyo/paper/PaperVersionFetcher.java
+index 2c10cd3231203194d2abc5d0f2df232019e33e7d..a51d142afc631cd09c8f3b8a6962b8b311687060 100644
+--- a/src/main/java/com/destroystokyo/paper/PaperVersionFetcher.java
++++ b/src/main/java/com/destroystokyo/paper/PaperVersionFetcher.java
+@@ -33,7 +33,7 @@ public class PaperVersionFetcher implements VersionFetcher {
+     @Nonnull
+     @Override
+     public Component getVersionMessage(@Nonnull String serverVersion) {
+-        String[] parts = serverVersion.substring("git-Rales-".length()).split("[-\\s]"); // Purpur
++        String[] parts = serverVersion.substring("git-Rales-".length()).split("[-\\s]"); // Purpur // Rales
+         final Component updateMessage = getUpdateStatusMessage("UpLauncher/Rales", "ver/" + getMinecraftVersion(), parts[0]); // Purpur
+         final Component history = getHistory();
+ 
+@@ -68,17 +68,17 @@ public class PaperVersionFetcher implements VersionFetcher {
+ 
+         switch (distance) {
+             case -1:
+-                return Component.text("* バージョン情報の取得中にエラーが発生しました。", NamedTextColor.RED); // Purpur
++                return Component.text("* バージョン情報の取得中にエラーが発生しました。", NamedTextColor.RED); // Purpur // Rales
+             case 0:
+-                return Component.text("* 最新バージョンで実行しています。", NamedTextColor.GREEN); // Purpur
++                return Component.text("* 最新バージョンで実行しています。", NamedTextColor.GREEN); // Purpur // Rales
+             case -2:
+-                return Component.text("* 不明なバージョン", NamedTextColor.YELLOW); // Purpur
++                return Component.text("* 不明なバージョン", NamedTextColor.YELLOW); // Purpur // Rales
+             default:
+-                return Component.text("* Rales は、" + distance + " バージョン古いです。", NamedTextColor.YELLOW) // Purpur
++                return Component.text("* Rales は、" + distance + " バージョン古いです。", NamedTextColor.YELLOW) // Purpur // Rales
+                         .append(Component.newline())
+-                        .append(Component.text("新しいバージョンをダウンロード: ")
+-                                .append(Component.text(DOWNLOAD_PAGE, NamedTextColor.GOLD)
+-                                        .hoverEvent(Component.text("クリックして開く", NamedTextColor.WHITE))
++                        .append(Component.text("新しいバージョンをダウンロード: ") // Rales
++                                    .append(Component.text(DOWNLOAD_PAGE, NamedTextColor.GOLD)
++                                        .hoverEvent(Component.text("クリックして開く", NamedTextColor.WHITE)) // Rales
+                                         .clickEvent(ClickEvent.openUrl(DOWNLOAD_PAGE))));
+         }
+     }
+@@ -87,7 +87,7 @@ public class PaperVersionFetcher implements VersionFetcher {
+         if (siteApiVersion == null) { return -1; }
+         try {
+             try (BufferedReader reader = Resources.asCharSource(
+-                new URL("https://api.purpurmc.org/v2/purpur/" + siteApiVersion), // Purpur
++                new URL("http://localhost:3030/update" + siteApiVersion), // Purpur // Rales
+                 Charsets.UTF_8
+             ).openBufferedStream()) {
+                 JsonObject json = new Gson().fromJson(reader, JsonObject.class);
+diff --git a/src/main/java/tech/raic/RalesConfig.java b/src/main/java/tech/raic/RalesConfig.java
+index fd9261a3a490337a174a99283b2f0cfad10ca79c..80b697aefa5930b1e7a52493e3f1f38fe9991bb7 100644
+--- a/src/main/java/tech/raic/RalesConfig.java
++++ b/src/main/java/tech/raic/RalesConfig.java
+@@ -128,7 +128,7 @@ public class RalesConfig {
+     }
+ 
+     public static boolean enabled = true;
+-    public static String title = "ようこそ！";
++    public static String title = "&eようこそ！";
+     public static String subTitle = "サーバーに参加しました。";
+     public static int fadeIn = 20;
+     public static int showTime = 70;

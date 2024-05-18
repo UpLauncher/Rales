@@ -1,0 +1,30 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Rai san <admin@raic.tech>
+Date: Wed, 15 May 2024 20:53:29 +0900
+Subject: [PATCH] feat: WTP maybe fix
+
+
+diff --git a/src/main/java/net/minecraft/server/players/PlayerList.java b/src/main/java/net/minecraft/server/players/PlayerList.java
+index 54cdf0b6c848b8eae670811fb4849db93308f4ce..fa0e74c0f0cdf6e91b501d2e74ea723feccad0b0 100644
+--- a/src/main/java/net/minecraft/server/players/PlayerList.java
++++ b/src/main/java/net/minecraft/server/players/PlayerList.java
+@@ -269,9 +269,6 @@ public abstract class PlayerList {
+         org.spigotmc.event.player.PlayerSpawnLocationEvent ev = new com.destroystokyo.paper.event.player.PlayerInitialSpawnEvent(spawnPlayer, spawnPlayer.getLocation()); // Paper use our duplicate event
+         this.cserver.getPluginManager().callEvent(ev);
+ 
+-        PlayerJoined pj = new PlayerJoined();
+-        pj.onPlayerJoin(spawnPlayer);
+-
+         Location loc = ev.getSpawnLocation();
+         worldserver1 = ((CraftWorld) loc.getWorld()).getHandle();
+ 
+@@ -347,6 +344,9 @@ public abstract class PlayerList {
+         PlayerJoinEvent playerJoinEvent = new PlayerJoinEvent(bukkitPlayer, io.papermc.paper.adventure.PaperAdventure.asAdventure(ichatmutablecomponent)); // Paper - Adventure
+         this.cserver.getPluginManager().callEvent(playerJoinEvent);
+ 
++        PlayerJoined pj = new PlayerJoined();
++        pj.onPlayerJoin(bukkitPlayer);
++
+         if (!player.connection.isAcceptingMessages()) {
+             return;
+         }

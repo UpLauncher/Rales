@@ -1,0 +1,19 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Rai san <admin@raic.tech>
+Date: Wed, 15 May 2024 19:47:42 +0900
+Subject: [PATCH] feat: (maybe) fix RalesCommand
+
+
+diff --git a/src/main/java/tech/raic/RalesConfig.java b/src/main/java/tech/raic/RalesConfig.java
+index 44a62e5e245a734691039c9dc9253c57d9fe2879..4c470a96ec17360e18d91e8af7e7f794cb6a766e 100644
+--- a/src/main/java/tech/raic/RalesConfig.java
++++ b/src/main/java/tech/raic/RalesConfig.java
+@@ -89,7 +89,7 @@ public class RalesConfig {
+ 
+     public static void registerCommands() {
+         for (Map.Entry<String, Command> entry : commands.entrySet()) {
+-            MinecraftServer.getServer().server.getCommandMap().register(entry.getKey(), "Purpur", entry.getValue());
++            MinecraftServer.getServer().server.getCommandMap().register(entry.getKey(), "Rales", entry.getValue());
+         }
+     }
+ 

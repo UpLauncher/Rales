@@ -5,7 +5,7 @@ Subject: [PATCH] Implement TPSBar
 
 
 diff --git a/src/main/java/net/minecraft/commands/Commands.java b/src/main/java/net/minecraft/commands/Commands.java
-index e7ddfd39b4f9337f5a01f5c34719aea25106a2e8..e7fc2beba639e9a6b7fb815508332d3a9e12b666 100644
+index 1b701beeac0cf2a3fe01a09601318e59316131d7..6e4274ac868e744c63e6faece2bbf3713f47fce0 100644
 --- a/src/main/java/net/minecraft/commands/Commands.java
 +++ b/src/main/java/net/minecraft/commands/Commands.java
 @@ -255,6 +255,7 @@ public class Commands {
@@ -41,7 +41,7 @@ index 6dc0101193c5a1a8850f849d4459462f00ce30e8..04accfaeba1beb564db7205c81d8481d
          }
      }
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-index 9944905ceb4bd2d0c8fdc1a9a116a3d12d5864f7..614e8a13b2d41bc39e580779798159e0d7b1c7ad 100644
+index d2a7eef0a1205cc6d6183b5a9b9a9c060cdb886d..418baa1d3977af2082e6b6ff17437af0841cc507 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
 @@ -299,6 +299,7 @@ public class ServerPlayer extends Player {
