@@ -1,0 +1,58 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Rai san <admin@raic.tech>
+Date: Sat, 18 May 2024 16:27:44 +0900
+Subject: [PATCH] feat: Update to Rales v1
+
+
+diff --git a/src/main/java/com/destroystokyo/paper/PaperVersionFetcher.java b/src/main/java/com/destroystokyo/paper/PaperVersionFetcher.java
+index 6d36fc6d8e22d9b68dea3830f6ecc8763184c343..4cc52087710345eae0bfdc396e26b05dbe4adfef 100644
+--- a/src/main/java/com/destroystokyo/paper/PaperVersionFetcher.java
++++ b/src/main/java/com/destroystokyo/paper/PaperVersionFetcher.java
+@@ -36,7 +36,7 @@ public class PaperVersionFetcher implements VersionFetcher {
+     private static final int DISTANCE_ERROR = -1;
+     private static final int DISTANCE_UNKNOWN = -2;
+     // Purpur start
+-    private static final String DOWNLOAD_PAGE = "https://purpurmc.org/downloads";
++    private static final String DOWNLOAD_PAGE = "https://raic.tech/rales/download";
+     private static int distance = DISTANCE_UNKNOWN; public int distance() { return distance; }
+     // Purpur end
+ 
+@@ -52,7 +52,7 @@ public class PaperVersionFetcher implements VersionFetcher {
+         if (build.buildNumber().isEmpty() && build.gitCommit().isEmpty()) {
+             updateMessage = text("You are running a development version without access to version information", color(0xFF5300));
+         } else {
+-            updateMessage = getUpdateStatusMessage("PurpurMC/Purpur", build); // Purpur
++            updateMessage = getUpdateStatusMessage("UpLauncher/Rales", build); // Purpur
+         }
+         final @Nullable Component history = this.getHistory();
+ 
+@@ -74,14 +74,14 @@ public class PaperVersionFetcher implements VersionFetcher {
+         }
+ 
+         return switch (distance) {
+-            case DISTANCE_ERROR -> text("* Error obtaining version information", NamedTextColor.RED); // Purpur
+-            case 0 -> text("* You are running the latest version", NamedTextColor.GREEN); // Purpur
+-            case DISTANCE_UNKNOWN -> text("* Unknown version", NamedTextColor.YELLOW); // Purpur
+-            default -> text("* You are " + distance + " version(s) behind", NamedTextColor.YELLOW) // Purpur
++            case DISTANCE_ERROR -> text("* バージョン情報の取得中できませんでした", NamedTextColor.RED); // Purpur
++            case 0 -> text("* 最新バージョンを使用中です", NamedTextColor.GREEN); // Purpur
++            case DISTANCE_UNKNOWN -> text("* 不明なバージョン", NamedTextColor.YELLOW); // Purpur
++            default -> text("* Rales は、" + distance + " バージョン古いです。", NamedTextColor.YELLOW) // Purpur
+                 .append(Component.newline())
+-                .append(text("Download the new version at: ")
++                .append(text("新しいバージョンをダウンロード: ")
+                     .append(text(DOWNLOAD_PAGE, NamedTextColor.GOLD)
+-                        .hoverEvent(text("Click to open", NamedTextColor.WHITE))
++                        .hoverEvent(text("クリックして開く", NamedTextColor.WHITE))
+                         .clickEvent(ClickEvent.openUrl(DOWNLOAD_PAGE))));
+         };
+     }
+@@ -89,7 +89,7 @@ public class PaperVersionFetcher implements VersionFetcher {
+     private static int fetchDistanceFromSiteApi(final ServerBuildInfo build, final int jenkinsBuild) {
+         try {
+             try (final BufferedReader reader = Resources.asCharSource(
+-                URI.create("https://api.purpurmc.org/v2/purpur/" + build.minecraftVersionId()).toURL(), // Purpur
++                URI.create("https://api-rales.raic.tech/update/" + build.minecraftVersionId()).toURL(), // Purpur
+                 Charsets.UTF_8
+             ).openBufferedStream()) {
+                 final JsonObject json = new Gson().fromJson(reader, JsonObject.class);
