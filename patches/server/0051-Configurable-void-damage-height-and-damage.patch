@@ -5,10 +5,10 @@ Subject: [PATCH] Configurable void damage height and damage
 
 
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index 8feace82105dccd2db3872a7e735ce376397abc8..90788e4ffdc6f38675aa859e3b2ff185046ac3fc 100644
+index f1cecf8ba15c6e6827b572386e82992bdecaef08..f3962df2d38c269f4d6426d66227bde1233994e6 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
-@@ -947,7 +947,7 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
+@@ -948,7 +948,7 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
  
      public void checkBelowWorld() {
          // Paper start - Configurable nether ceiling damage
@@ -18,10 +18,10 @@ index 8feace82105dccd2db3872a7e735ce376397abc8..90788e4ffdc6f38675aa859e3b2ff185
              && (!(this instanceof Player player) || !player.getAbilities().invulnerable))) {
              // Paper end - Configurable nether ceiling damage
 diff --git a/src/main/java/net/minecraft/world/entity/LivingEntity.java b/src/main/java/net/minecraft/world/entity/LivingEntity.java
-index 3c023e4c810b7bc3693b944d284f493ccb874253..c0dd4b16056686ad00d82b32e8d73f985b7023b3 100644
+index ec0404fadfcfad8eef4f4a3c3f90ae92cd38dbda..760d4d5faadfc4d24d76d5913dbe837be022cec3 100644
 --- a/src/main/java/net/minecraft/world/entity/LivingEntity.java
 +++ b/src/main/java/net/minecraft/world/entity/LivingEntity.java
-@@ -2582,7 +2582,7 @@ public abstract class LivingEntity extends Entity implements Attackable {
+@@ -2592,7 +2592,7 @@ public abstract class LivingEntity extends Entity implements Attackable {
  
      @Override
      protected void onBelowWorld() {

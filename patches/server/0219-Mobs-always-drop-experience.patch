@@ -101,7 +101,7 @@ index 2343325fa9a771de7b9445cda24a2bcd7a7c1761..f0b6118a9995bb41836685bbf94d2e7f
      public ItemStack getBucketItemStack() {
          return new ItemStack(Items.COD_BUCKET);
 diff --git a/src/main/java/net/minecraft/world/entity/animal/Cow.java b/src/main/java/net/minecraft/world/entity/animal/Cow.java
-index 541242018890b688033159a72204fa0bd9db5387..4541e72bc93b19df6aecc781b4e381a7224aa4a7 100644
+index 541cc6c70178a430ac8e3ab8f6a2250b8ea1d964..1691a98caabf27ea092a9b422649ac84bc0a7235 100644
 --- a/src/main/java/net/minecraft/world/entity/animal/Cow.java
 +++ b/src/main/java/net/minecraft/world/entity/animal/Cow.java
 @@ -86,6 +86,11 @@ public class Cow extends Animal {
@@ -421,7 +421,7 @@ index ab3727c336cc7e268a2f7b2c04dac3e5d259b454..ea1515f189bf3bc4cfef4524fb40f0d8
      public Map<String, Vector3f> getModelRotationValues() {
          return this.modelRotationValues;
 diff --git a/src/main/java/net/minecraft/world/entity/animal/goat/Goat.java b/src/main/java/net/minecraft/world/entity/animal/goat/Goat.java
-index 9fba034ed863d1dc1ee5fb7cf09650382481dbc7..fab01a3e779e39962ef04305540e2fe3043072a2 100644
+index 412b44ea2d33ef68721b91da9f550738c6c780ba..79c27b5717fec000ea94138ebc76dbabf5b2eeaf 100644
 --- a/src/main/java/net/minecraft/world/entity/animal/goat/Goat.java
 +++ b/src/main/java/net/minecraft/world/entity/animal/goat/Goat.java
 @@ -118,6 +118,11 @@ public class Goat extends Animal {
@@ -469,10 +469,10 @@ index e623284b353831d1a540af40e139ac16091dcbf6..fdf9ec418b0fc567e286ac79dbdbedda
      protected void randomizeAttributes(RandomSource random) {
          this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)generateMaxHealth(random::nextInt));
 diff --git a/src/main/java/net/minecraft/world/entity/animal/horse/Llama.java b/src/main/java/net/minecraft/world/entity/animal/horse/Llama.java
-index 6f744c07d01d5e01dda5aa5cdcf9a29f883ad28a..f452e18829e2b05cf742a4239cba293263b3a88a 100644
+index 12ff4091674f7efb3e324df0df2d798dcbc46027..7d2a5c806fd0f1228c45b8a8b56d7ba13b899a2d 100644
 --- a/src/main/java/net/minecraft/world/entity/animal/horse/Llama.java
 +++ b/src/main/java/net/minecraft/world/entity/animal/horse/Llama.java
-@@ -151,6 +151,11 @@ public class Llama extends AbstractChestedHorse implements VariantHolder<Llama.V
+@@ -150,6 +150,11 @@ public class Llama extends AbstractChestedHorse implements VariantHolder<Llama.V
          return this.level().purpurConfig.llamaTakeDamageFromWater;
      }
  
