@@ -38,10 +38,10 @@ index 154c9b0e747c38e55e6b2f4658c2add452a65ae4..7a18a6f0c88ba4e8a15606aae4839ed3
                  }
  
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-index 3824afcd93520b4710c3e646549d541cf807e2f2..58b066793a6248b4627f6b81921412971828e313 100644
+index af27cd5c111acfb99e8a6e1071181a89b94f7c25..00572e66b50d9e6489871f629e45c36b0ca47715 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-@@ -1546,7 +1546,19 @@ public class ServerPlayer extends Player {
+@@ -1547,7 +1547,19 @@ public class ServerPlayer extends Player {
                      });
  
                      if (!this.serverLevel().canSleepThroughNights()) {

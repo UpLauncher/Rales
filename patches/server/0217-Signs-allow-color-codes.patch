@@ -5,10 +5,10 @@ Subject: [PATCH] Signs allow color codes
 
 
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-index cce4ebb350ba09323c59903991e4f6f289d2cb53..d3d6febb1942b59e6e0e90259acdef22d344a853 100644
+index 03a1eceaed065b7f33d830414136ed3c07c2034c..a5566e52d839191add236a6ff7245d1b7617fc37 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-@@ -1683,6 +1683,7 @@ public class ServerPlayer extends Player {
+@@ -1684,6 +1684,7 @@ public class ServerPlayer extends Player {
  
      @Override
      public void openTextEdit(SignBlockEntity sign, boolean front) {

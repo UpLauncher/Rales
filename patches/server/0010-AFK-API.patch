@@ -5,10 +5,10 @@ Subject: [PATCH] AFK API
 
 
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-index c1d6a2c82e240a7c50b4cb973c285b816f7ec419..346c537fd27efa7619a61062d6d5be58d17772fa 100644
+index 5dd8c9f53ba50f160198a09dd2069edbac48230e..70838e5ee30733a71ad73330f69ea093f73b4bd2 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-@@ -2326,8 +2326,68 @@ public class ServerPlayer extends Player {
+@@ -2327,8 +2327,68 @@ public class ServerPlayer extends Player {
  
      public void resetLastActionTime() {
          this.lastActionTime = Util.getMillis();
@@ -78,7 +78,7 @@ index c1d6a2c82e240a7c50b4cb973c285b816f7ec419..346c537fd27efa7619a61062d6d5be58
          return this.stats;
      }
 diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index 647026afdb161e21ff55dc9a3d470eef5502571f..f2ba620d25eba517d2949cb669ee84166f954984 100644
+index a33a724de4c408fcf23b8ec9206311fc25936f1c..d84f083ea335d4bfc021e11cbb86bcc17f9ba76c 100644
 --- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 @@ -332,6 +332,20 @@ public class ServerGamePacketListenerImpl extends ServerCommonPacketListenerImpl

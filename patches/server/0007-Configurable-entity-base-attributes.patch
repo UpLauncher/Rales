@@ -5,7 +5,7 @@ Subject: [PATCH] Configurable entity base attributes
 
 
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index 973e4c24a53fecad99fa5740c9c3cedd1320821b..e90c753e8a2d1ca75ee55ff250b16d60b1d61df6 100644
+index b976ea5d919f73c406adea90603f4a78b761fd25..28c8860d145eb34911e1a54a15597d8c873df872 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
 @@ -163,7 +163,7 @@ import org.bukkit.plugin.PluginManager;
@@ -34,7 +34,7 @@ index aa76a24421cdb3908a3544d92eb3d1e3c2ebedc4..8211c152e6f4232e82e452b08047e457
      protected ParticleOptions getInkParticle() {
          return ParticleTypes.GLOW_SQUID_INK;
 diff --git a/src/main/java/net/minecraft/world/entity/LivingEntity.java b/src/main/java/net/minecraft/world/entity/LivingEntity.java
-index 593db87486031d6e21b574a755b16bf6f5c5bf95..470546109486c49be91647ad42037b6567150144 100644
+index f790211062a14b5d70dac178c31bfc7033779222..9ddc0cf7107cff08ac3ae75c51b3119161304820 100644
 --- a/src/main/java/net/minecraft/world/entity/LivingEntity.java
 +++ b/src/main/java/net/minecraft/world/entity/LivingEntity.java
 @@ -301,6 +301,7 @@ public abstract class LivingEntity extends Entity implements Attackable {
@@ -144,7 +144,7 @@ index e2a98b45e56a368de19bb65e304370a5998c7cb9..3d61c2d5da103de68242c16d85c70381
      public ItemStack getBucketItemStack() {
          return new ItemStack(Items.COD_BUCKET);
 diff --git a/src/main/java/net/minecraft/world/entity/animal/Cow.java b/src/main/java/net/minecraft/world/entity/animal/Cow.java
-index 41b6c79c31414378d433500a35e434e546738e42..bee1a275f242866206dc461461b7962e04289ddc 100644
+index 8c6bda1ed0408fa1c7cc772097159410443b7fae..478663c16a5763dda9a6c3edbafc843b8dfe06f2 100644
 --- a/src/main/java/net/minecraft/world/entity/animal/Cow.java
 +++ b/src/main/java/net/minecraft/world/entity/animal/Cow.java
 @@ -61,6 +61,11 @@ public class Cow extends Animal {
@@ -615,10 +615,10 @@ index 816c698a81a77f217a606468aa157bdaed779479..9ad0d3972d1970b11687da174a83e3a0
      protected void randomizeAttributes(RandomSource random) {
          this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)generateMaxHealth(random::nextInt));
 diff --git a/src/main/java/net/minecraft/world/entity/animal/horse/Llama.java b/src/main/java/net/minecraft/world/entity/animal/horse/Llama.java
-index 3943ca63aaeecfb98c34ceef9b0c40e71de4e832..697895661826e4a1ecbdfd2c3a195b9d0ee7e00a 100644
+index 1564d1327e4b735461e41a7a876f63a9943d2675..df4943e0a75d084a1c0ae6c12ade533b3c4206fc 100644
 --- a/src/main/java/net/minecraft/world/entity/animal/horse/Llama.java
 +++ b/src/main/java/net/minecraft/world/entity/animal/horse/Llama.java
-@@ -124,6 +124,21 @@ public class Llama extends AbstractChestedHorse implements VariantHolder<Llama.V
+@@ -125,6 +125,21 @@ public class Llama extends AbstractChestedHorse implements VariantHolder<Llama.V
      }
      // Purpur end
  

@@ -5,10 +5,10 @@ Subject: [PATCH] Add boat fall damage config
 
 
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-index ca750192e6faa46c1ce6feee220572ccb195f98f..f19897177d9e4bfde145f3eb9de5adf7bbe8c2a4 100644
+index a11dd0a2f302f1ff64c3ca92d55d6a8ef28398b7..6aeb9f330380b0adc3f45433a462799675d5380c 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-@@ -1189,7 +1189,16 @@ public class ServerPlayer extends Player {
+@@ -1190,7 +1190,16 @@ public class ServerPlayer extends Player {
          if (this.isInvulnerableTo(source)) {
              return false;
          } else {
