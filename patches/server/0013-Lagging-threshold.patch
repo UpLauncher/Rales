@@ -5,7 +5,7 @@ Subject: [PATCH] Lagging threshold
 
 
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index c8616c6c9f555079cb8433da4dd9dcf9e218dc7d..0f53f5d5c25f115cf6bc7b0fdd844521a15ccfbd 100644
+index db8507f11ca46c642700a8d9db70e0296921ffa8..6676970d434b8c1200d8ec3c0304084b640a7eb8 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
 @@ -319,6 +319,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
@@ -14,9 +14,9 @@ index c8616c6c9f555079cb8433da4dd9dcf9e218dc7d..0f53f5d5c25f115cf6bc7b0fdd844521
      public boolean isIteratingOverLevels = false; // Paper - Throw exception on world create while being ticked
 +    public boolean lagging = false; // Purpur
  
-     public static <S extends MinecraftServer> S spin(Function<Thread, S> serverFactory) {
-         AtomicReference<S> atomicreference = new AtomicReference();
-@@ -1186,6 +1187,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+     public volatile Thread shutdownThread; // Paper
+     public volatile boolean abnormalExit = false; // Paper
+@@ -1226,6 +1227,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
                      this.recentTps[0] = tps1.getAverage();
                      this.recentTps[1] = tps5.getAverage();
                      this.recentTps[2] = tps15.getAverage();
@@ -40,10 +40,10 @@ index 90e12b1eb1180d066e7162bef0adeb9d3dec8721..3afa845c073aec1f60a932dc825f5338
      // Purpur end
  }
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurConfig.java b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-index fdf726c455f9a4de822644c703de7ffeab6b3702..f80414b9bb7fb1f2849749481209648516fb28fb 100644
+index 9960d7791d37fb7b43e8ffc3351528510ac537ca..9e6bcdaa2b3dabb2a7c50034eed81f0064a2f98f 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-@@ -193,6 +193,11 @@ public class PurpurConfig {
+@@ -195,6 +195,11 @@ public class PurpurConfig {
          serverModName = getString("settings.server-mod-name", serverModName);
      }
  

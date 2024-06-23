@@ -6,10 +6,10 @@ Subject: [PATCH] Allow toggling special MobSpawners per world
 In vanilla, these are all hardcoded on for world type 0 (overworld) and hardcoded off for every other world type. Default config behaviour matches this.
 
 diff --git a/src/main/java/net/minecraft/server/level/ServerLevel.java b/src/main/java/net/minecraft/server/level/ServerLevel.java
-index c9efd62cba540f7cdd8a7ce37d455c9b190c5a12..6a2e5d18039310f8fbb3021db92d8f8f79c5c423 100644
+index f1cedc22891cf2c91115188545d752567d3761b1..44f7de001538435d526fac3bc6b7575e15d2bb89 100644
 --- a/src/main/java/net/minecraft/server/level/ServerLevel.java
 +++ b/src/main/java/net/minecraft/server/level/ServerLevel.java
-@@ -520,7 +520,24 @@ public class ServerLevel extends Level implements WorldGenLevel, ca.spottedleaf.
+@@ -519,7 +519,24 @@ public class ServerLevel extends Level implements WorldGenLevel, ca.spottedleaf.
          this.dragonParts = new Int2ObjectOpenHashMap();
          this.tickTime = flag1;
          this.server = minecraftserver;
@@ -59,10 +59,10 @@ index c72b6ea5530e54fc373c701028e1c147cea34b59..96e9fce5f9084737d2fcf4deb8330573
              if (spawnplacementtype.isSpawnPositionOk(world, blockposition2, EntityType.WANDERING_TRADER)) {
                  blockposition1 = blockposition2;
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-index 07160ebf5890dbbd1daa590055f7f6c03fdcae78..f517a050e7634b0c7616a5c9878b78a3c0706cfa 100644
+index b9236abf201401ea4bf4cf1f92b534669447cd1d..e2ff691f4d237af59710151754601eed24f49598 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-@@ -69,6 +69,12 @@ public class PurpurWorldConfig {
+@@ -70,6 +70,12 @@ public class PurpurWorldConfig {
          return PurpurConfig.config.getBoolean("world-settings." + worldName + "." + path, PurpurConfig.config.getBoolean("world-settings.default." + path));
      }
  
@@ -75,7 +75,7 @@ index 07160ebf5890dbbd1daa590055f7f6c03fdcae78..f517a050e7634b0c7616a5c9878b78a3
      private double getDouble(String path, double def) {
          PurpurConfig.config.addDefault("world-settings.default." + path, def);
          return PurpurConfig.config.getDouble("world-settings." + worldName + "." + path, PurpurConfig.config.getDouble("world-settings.default." + path));
-@@ -235,6 +241,21 @@ public class PurpurWorldConfig {
+@@ -234,6 +240,21 @@ public class PurpurWorldConfig {
          }
      }
  
