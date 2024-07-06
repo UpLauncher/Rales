@@ -1,0 +1,25 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=E9=9B=B7?= <admin@raic.tech>
+Date: Sat, 6 Jul 2024 17:10:52 +0900
+Subject: [PATCH] fix: Setting file startup error Fix
+
+
+diff --git a/src/main/java/org/bukkit/craftbukkit/Main.java b/src/main/java/org/bukkit/craftbukkit/Main.java
+index 930614ebfd3d6b6e011a58bbd5310620c02582db..f7d6ebcbb8fe43738fb4e9670f4fba726d49d7f9 100644
+--- a/src/main/java/org/bukkit/craftbukkit/Main.java
++++ b/src/main/java/org/bukkit/craftbukkit/Main.java
+@@ -184,6 +184,14 @@ public class Main {
+                     .describedAs("Yml file");
+                 // Purpur end
+ 
++                // Rales Start
++                acceptsAll(asList("rales", "rales-settings"), "File for rales settings")
++                    .withRequiredArg()
++                    .ofType(File.class)
++                    .defaultsTo(new File("rales.yml"))
++                    .describedAs("Yml file");
++                // Rales end
++
+                 // Paper start
+                 acceptsAll(asList("server-name"), "Name of the server")
+                         .withRequiredArg()
