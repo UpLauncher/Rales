@@ -5,10 +5,10 @@ Subject: [PATCH] Customizable sleeping actionbar messages
 
 
 diff --git a/src/main/java/net/minecraft/server/level/ServerLevel.java b/src/main/java/net/minecraft/server/level/ServerLevel.java
-index 72b55599cff0cf8b398c1c8f077dabe3f8d02bbf..65f36d4cf7789f9a7b26d29d9b2b5fdae199694f 100644
+index ddb2e8d5a692cd76d67f867fc8bcca3c9b24bab3..be87e350b0d808305a389baf447c0ed00b1cbfc0 100644
 --- a/src/main/java/net/minecraft/server/level/ServerLevel.java
 +++ b/src/main/java/net/minecraft/server/level/ServerLevel.java
-@@ -1026,11 +1026,27 @@ public class ServerLevel extends Level implements WorldGenLevel, ca.spottedleaf.
+@@ -1062,11 +1062,27 @@ public class ServerLevel extends Level implements WorldGenLevel, ca.spottedleaf.
          if (this.canSleepThroughNights()) {
              if (!this.getServer().isSingleplayer() || this.getServer().isPublished()) {
                  int i = this.getGameRules().getInt(GameRules.RULE_PLAYERS_SLEEPING_PERCENTAGE);

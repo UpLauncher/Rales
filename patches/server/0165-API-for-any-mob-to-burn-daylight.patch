@@ -6,10 +6,10 @@ Subject: [PATCH] API for any mob to burn daylight
 Co-authored by: Encode42 <me@encode42.dev>
 
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index 62a3086a980685c8210bb6b3ec987ce125a99116..313f3430af520613cebbf890ff8d7f70d30dd518 100644
+index 13afec25f9d08401d9c5adee211e422159f2ba02..0d4eb7fb3a62db8691d49d6963aec7ca5a5240c9 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
-@@ -536,6 +536,22 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
+@@ -537,6 +537,22 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
      }
      // Purpur end
  
@@ -33,7 +33,7 @@ index 62a3086a980685c8210bb6b3ec987ce125a99116..313f3430af520613cebbf890ff8d7f70
          this.id = Entity.ENTITY_COUNTER.incrementAndGet();
          this.passengers = ImmutableList.of();
 diff --git a/src/main/java/net/minecraft/world/entity/LivingEntity.java b/src/main/java/net/minecraft/world/entity/LivingEntity.java
-index ee48e98e6981225b486ea933d51fb4b9cc73fa18..9367e0f148d3aa9a60dfd8881a3c337630a53129 100644
+index 6da2be7115f50f1839f3610bfdd4262f70d11b07..8b6f8c6dd4c7acbceb0925bd6fd3d23e5186a578 100644
 --- a/src/main/java/net/minecraft/world/entity/LivingEntity.java
 +++ b/src/main/java/net/minecraft/world/entity/LivingEntity.java
 @@ -286,6 +286,7 @@ public abstract class LivingEntity extends Entity implements Attackable {
@@ -64,7 +64,7 @@ index ee48e98e6981225b486ea933d51fb4b9cc73fa18..9367e0f148d3aa9a60dfd8881a3c3376
      }
  
      // CraftBukkit start
-@@ -3580,6 +3587,34 @@ public abstract class LivingEntity extends Entity implements Attackable {
+@@ -3585,6 +3592,34 @@ public abstract class LivingEntity extends Entity implements Attackable {
              this.hurt(this.damageSources().drown(), 1.0F);
          }
  
@@ -375,13 +375,13 @@ index 4be205b10229b238039e4221df043e47cba68511..d4fc45d4f419309ba11830accdc3cdaf
          Preconditions.checkArgument(entity != null, "Unknown entity");
  
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java
-index b3970222ed979dda5296ce472739c112b70d0e89..e987086d234c62fc79e9f45d2d8ac8cd7c2dbd7b 100644
+index d2bb0831394c03b620b2cbd8306cb82b621f34f7..572587db064c87ac86add6d9eece5ac94374c7b9 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java
-@@ -1182,4 +1182,16 @@ public class CraftLivingEntity extends CraftEntity implements LivingEntity {
-         this.getHandle().setYBodyRot(bodyYaw);
+@@ -1189,4 +1189,16 @@ public class CraftLivingEntity extends CraftEntity implements LivingEntity {
+         return this.getHandle().canUseSlot(org.bukkit.craftbukkit.CraftEquipmentSlot.getNMS(slot));
      }
-     // Paper end - body yaw API
+     // Paper end - Expose canUseSlot
 +
 +    // Purpur start - API for any mob to burn daylight
 +    @Override
