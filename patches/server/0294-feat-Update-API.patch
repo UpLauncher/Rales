@@ -1,0 +1,32 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=E9=9B=B7?= <admin@raic.tech>
+Date: Mon, 24 Jun 2024 19:44:02 +0900
+Subject: [PATCH] feat: Update API
+
+
+diff --git a/src/main/java/com/destroystokyo/paper/PaperVersionFetcher.java b/src/main/java/com/destroystokyo/paper/PaperVersionFetcher.java
+index 6d36fc6d8e22d9b68dea3830f6ecc8763184c343..b986eb00ffdf6e3e7544a716d062aa9ffc31e0e8 100644
+--- a/src/main/java/com/destroystokyo/paper/PaperVersionFetcher.java
++++ b/src/main/java/com/destroystokyo/paper/PaperVersionFetcher.java
+@@ -89,7 +89,7 @@ public class PaperVersionFetcher implements VersionFetcher {
+     private static int fetchDistanceFromSiteApi(final ServerBuildInfo build, final int jenkinsBuild) {
+         try {
+             try (final BufferedReader reader = Resources.asCharSource(
+-                URI.create("https://api.purpurmc.org/v2/purpur/" + build.minecraftVersionId()).toURL(), // Purpur
++                URI.create("https://api-rales.raic.tech/update/" + build.minecraftVersionId()).toURL(), // Purpur
+                 Charsets.UTF_8
+             ).openBufferedStream()) {
+                 final JsonObject json = new Gson().fromJson(reader, JsonObject.class);
+diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
+index a845ce474fa3d76902e8e23666b853713cb98db5..fb5de64fd17d76c1de961b873f4a4ac6fa0a237e 100644
+--- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
++++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
+@@ -1074,7 +1074,7 @@ public final class CraftServer implements Server {
+         org.spigotmc.SpigotConfig.init((File) this.console.options.valueOf("spigot-settings")); // Spigot
+         this.console.paperConfigurations.reloadConfigs(this.console);
+         org.purpurmc.purpur.PurpurConfig.init((File) console.options.valueOf("purpur-settings")); // Purpur
+-        tech.raic.RalesConfig.init((File) console.options.valueOf("rales-settings")); // Purpur
++        tech.raic.RalesConfig.init((File) console.options.valueOf("rales-settings")); // Rales
+         for (ServerLevel world : this.console.getAllLevels()) {
+             // world.serverLevelData.setDifficulty(config.difficulty); // Paper - per level difficulty
+             world.setSpawnSettings(world.serverLevelData.getDifficulty() != Difficulty.PEACEFUL && config.spawnMonsters, config.spawnAnimals); // Paper - per level difficulty (from MinecraftServer#setDifficulty(ServerLevel, Difficulty, boolean))

@@ -1,0 +1,35 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=E9=9B=B7?= <admin@raic.tech>
+Date: Mon, 24 Jun 2024 19:44:03 +0900
+Subject: [PATCH] feat: Update API
+
+
+diff --git a/src/main/java/org/bukkit/command/defaults/VersionCommand.java b/src/main/java/org/bukkit/command/defaults/VersionCommand.java
+index c880d0010849ab733ad13bbd18fab3c864d0cf61..dd3aef2e260200382c4c72bccd2dd03aa22740c3 100644
+--- a/src/main/java/org/bukkit/command/defaults/VersionCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/VersionCommand.java
+@@ -195,7 +195,7 @@ public class VersionCommand extends BukkitCommand {
+                 return;
+             }
+             versionWaiters.add(sender);
+-            sender.sendMessage(Component.text("Checking version, please wait...", NamedTextColor.WHITE, TextDecoration.ITALIC)); // Paper
++            sender.sendMessage(Component.text("バージョンを確認しています。しばらくお待ちください...", NamedTextColor.WHITE, TextDecoration.ITALIC)); // Paper
+             if (!versionTaskStarted) {
+                 versionTaskStarted = true;
+                 new Thread(new Runnable() {
+@@ -259,13 +259,13 @@ public class VersionCommand extends BukkitCommand {
+         // Purpur start
+         int distance = getVersionFetcher().distance();
+         final Component message = Component.join(net.kyori.adventure.text.JoinConfiguration.separator(Component.newline()),
+-            ChatColor.parseMM("<grey>Current Purpur Version: %s%s*", distance == 0 ? "<green>" : distance > 0 ? "<yellow>" : "<red>", Bukkit.getVersion()),
++            ChatColor.parseMM("<grey>現在のRalesバージョン: %s%s*", distance == 0 ? "<green>" : distance > 0 ? "<yellow>" : "<red>", Bukkit.getVersion()), // Rales
+             // Purpur end
+             msg
+         );
+         this.versionMessage = Component.text()
+             .append(message)
+-            .hoverEvent(Component.text("Click to copy to clipboard", NamedTextColor.WHITE))
++            .hoverEvent(Component.text("クリックしてクリップボードにコピー", NamedTextColor.WHITE))
+             .clickEvent(ClickEvent.copyToClipboard(PlainTextComponentSerializer.plainText().serialize(message)))
+             .build();
+         // Paper end

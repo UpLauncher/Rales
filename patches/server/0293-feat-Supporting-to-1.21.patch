@@ -1,0 +1,347 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=E9=9B=B7?= <admin@raic.tech>
+Date: Sun, 23 Jun 2024 18:17:53 +0900
+Subject: [PATCH] feat: Supporting to 1.21
+
+
+diff --git a/build.gradle.kts b/build.gradle.kts
+index 42fa7df2badca3fe26258ce0db934ba33f9cec80..d2f40ab1f2805f0c2b8442cd1a38fb08be330309 100644
+--- a/build.gradle.kts
++++ b/build.gradle.kts
+@@ -77,21 +77,21 @@ tasks.jar {
+     manifest {
+         val git = Git(rootProject.layout.projectDirectory.path)
+         val mcVersion = rootProject.providers.gradleProperty("mcVersion").get()
+-        val build = System.getenv("BUILD_NUMBER") ?: null
++        val build = /* System.getenv("BUILD_NUMBER") */4 ?: null
+         val gitHash = git("rev-parse", "--short=7", "HEAD").getText().trim()
+         val implementationVersion = "$mcVersion-${build ?: "DEV"}-$gitHash"
+         val date = git("show", "-s", "--format=%ci", gitHash).getText().trim() // Paper
+         val gitBranch = git("rev-parse", "--abbrev-ref", "HEAD").getText().trim() // Paper
+         attributes(
+             "Main-Class" to "org.bukkit.craftbukkit.Main",
+-            "Implementation-Title" to "Purpur", // Purpur
++            "Implementation-Title" to "Rales", // Purpur // Rales
+             "Implementation-Version" to implementationVersion,
+             "Implementation-Vendor" to date, // Paper
+-            "Specification-Title" to "Purpur", // Purpur
++            "Specification-Title" to "Rales", // Purpur // Rales
+             "Specification-Version" to project.version,
+-            "Specification-Vendor" to "Purpur Team", // Purpur
+-            "Brand-Id" to "purpurmc:purpur", // Purpur
+-            "Brand-Name" to "Purpur", // Purpur
++            "Specification-Vendor" to "UpLauncher Team", // Purpur // Rales
++            "Brand-Id" to "uplauncher:rales", // Purpur // Rales
++            "Brand-Name" to "Rales", // Purpur // Rales
+             "Build-Number" to (build ?: ""),
+             "Build-Time" to Instant.now().toString(),
+             "Git-Branch" to gitBranch, // Paper
+diff --git a/src/main/java/net/minecraft/server/dedicated/DedicatedServer.java b/src/main/java/net/minecraft/server/dedicated/DedicatedServer.java
+index 39a7abeeff53a608774dc34226e9b5e12bd5b5d2..5912bc21323e184e54d5176f35fbac208615510b 100644
+--- a/src/main/java/net/minecraft/server/dedicated/DedicatedServer.java
++++ b/src/main/java/net/minecraft/server/dedicated/DedicatedServer.java
+@@ -246,6 +246,17 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
+         }
+         org.purpurmc.purpur.PurpurConfig.registerCommands();
+         // Purpur end
++
++        //Rales start
++        try {
++            tech.raic.RalesConfig.init((java.io.File) options.valueOf("rales-settings"));
++        } catch (Exception e) {
++            DedicatedServer.LOGGER.error("Unable to load server configuration", e);
++            return false;
++        }
++        tech.raic.RalesConfig.registerCommands();
++        //Rales end
++
+         com.destroystokyo.paper.VersionHistoryManager.INSTANCE.getClass(); // Paper - load version history now
+ 
+         this.setPvpAllowed(dedicatedserverproperties.pvp);
+diff --git a/src/main/java/net/minecraft/server/players/PlayerList.java b/src/main/java/net/minecraft/server/players/PlayerList.java
+index 74c6f43a26ca1b36e7121dddd9f065b2a9254493..2696a0b9fa6ecf7129b0ef9cba76a04fdc8c1b76 100644
+--- a/src/main/java/net/minecraft/server/players/PlayerList.java
++++ b/src/main/java/net/minecraft/server/players/PlayerList.java
+@@ -122,6 +122,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
+ import org.bukkit.event.player.PlayerRespawnEvent;
+ import org.bukkit.event.player.PlayerRespawnEvent.RespawnReason;
+ import org.bukkit.event.player.PlayerSpawnChangeEvent;
++import tech.raic.wtp.PlayerJoined;
+ // CraftBukkit end
+ 
+ public abstract class PlayerList {
+@@ -346,6 +347,11 @@ public abstract class PlayerList {
+         PlayerJoinEvent playerJoinEvent = new PlayerJoinEvent(bukkitPlayer, io.papermc.paper.adventure.PaperAdventure.asAdventure(ichatmutablecomponent)); // Paper - Adventure
+         this.cserver.getPluginManager().callEvent(playerJoinEvent);
+ 
++        // Rales start
++        PlayerJoined pj = new PlayerJoined();
++        pj.onPlayerJoin(bukkitPlayer);
++        // Rales end
++
+         if (!player.connection.isAcceptingMessages()) {
+             return;
+         }
+diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
+index 002a3ee08d7e009ef1e4bd3bc274aa608846b219..a845ce474fa3d76902e8e23666b853713cb98db5 100644
+--- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
++++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
+@@ -1074,6 +1074,7 @@ public final class CraftServer implements Server {
+         org.spigotmc.SpigotConfig.init((File) this.console.options.valueOf("spigot-settings")); // Spigot
+         this.console.paperConfigurations.reloadConfigs(this.console);
+         org.purpurmc.purpur.PurpurConfig.init((File) console.options.valueOf("purpur-settings")); // Purpur
++        tech.raic.RalesConfig.init((File) console.options.valueOf("rales-settings")); // Purpur
+         for (ServerLevel world : this.console.getAllLevels()) {
+             // world.serverLevelData.setDifficulty(config.difficulty); // Paper - per level difficulty
+             world.setSpawnSettings(world.serverLevelData.getDifficulty() != Difficulty.PEACEFUL && config.spawnMonsters, config.spawnAnimals); // Paper - per level difficulty (from MinecraftServer#setDifficulty(ServerLevel, Difficulty, boolean))
+diff --git a/src/main/java/tech/raic/RalesCommand.java b/src/main/java/tech/raic/RalesCommand.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..05be2521f962d32f2a4c55d72e30db54cec13205
+--- /dev/null
++++ b/src/main/java/tech/raic/RalesCommand.java
+@@ -0,0 +1,59 @@
++package tech.raic;
++
++import java.io.File;
++import java.util.Collections;
++import java.util.List;
++import java.util.stream.Collectors;
++import java.util.stream.Stream;
++import net.minecraft.server.MinecraftServer;
++import org.bukkit.ChatColor;
++import org.bukkit.Location;
++import org.bukkit.command.Command;
++import org.bukkit.command.CommandSender;
++
++public class RalesCommand extends Command {
++    public RalesCommand(String name) {
++        super(name);
++        this.description = "Rales related commands";
++        this.usageMessage = "/rales [reload | version]";
++        this.setPermission("bukkit.command.rales");
++    }
++
++    @Override
++    public List<String> tabComplete(CommandSender sender, String alias, String[] args, Location location) throws IllegalArgumentException {
++        if (args.length == 1) {
++            return Stream.of("reload", "version")
++                    .filter(arg -> arg.startsWith(args[0].toLowerCase()))
++                    .collect(Collectors.toList());
++        }
++        return Collections.emptyList();
++    }
++
++    @Override
++    public boolean execute(CommandSender sender, String commandLabel, String[] args) {
++        if (!testPermission(sender)) return true;
++
++        if (args.length != 1) {
++            sender.sendMessage(ChatColor.RED + "Usage: " + usageMessage);
++            return false;
++        }
++
++        if (args[0].equalsIgnoreCase("reload")) {
++            Command.broadcastCommandMessage(sender, ChatColor.RED + "Please note that this command is not supported and may cause issues.");
++            Command.broadcastCommandMessage(sender, ChatColor.RED + "If you encounter any issues please use the /stop command to restart your server.");
++
++            MinecraftServer console = MinecraftServer.getServer();
++            RalesConfig.init((File) console.options.valueOf("rales-settings"));
++            console.server.reloadCount++;
++
++            Command.broadcastCommandMessage(sender, ChatColor.GREEN + "Rales config reload complete.");
++        } else if (args[0].equalsIgnoreCase("version")) {
++            Command verCmd = org.bukkit.Bukkit.getServer().getCommandMap().getCommand("version");
++            if (verCmd != null) {
++                return verCmd.execute(sender, commandLabel, new String[0]);
++            }
++        }
++
++        return true;
++    }
++}
+diff --git a/src/main/java/tech/raic/RalesConfig.java b/src/main/java/tech/raic/RalesConfig.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..f94b9d96fffa8c8b64cdcb03c2682d3e11148943
+--- /dev/null
++++ b/src/main/java/tech/raic/RalesConfig.java
+@@ -0,0 +1,155 @@
++package tech.raic;
++
++import com.google.common.base.Throwables;
++import com.google.common.collect.ImmutableMap;
++import java.io.File;
++import java.io.IOException;
++import java.lang.reflect.InvocationTargetException;
++import java.lang.reflect.Method;
++import java.lang.reflect.Modifier;
++import java.util.HashMap;
++import java.util.List;
++import java.util.Map;
++import java.util.logging.Level;
++import net.minecraft.server.MinecraftServer;
++import net.minecraft.world.level.block.Blocks;
++import org.bukkit.Bukkit;
++import org.bukkit.command.Command;
++import org.bukkit.configuration.ConfigurationSection;
++import org.bukkit.configuration.InvalidConfigurationException;
++import org.bukkit.configuration.file.YamlConfiguration;
++
++@SuppressWarnings("unused")
++public class RalesConfig {
++    private static final String HEADER = "これは、Rales の設定ファイルです。";
++    private static File CONFIG_FILE;
++    public static YamlConfiguration config;
++
++    private static Map<String, Command> commands;
++
++    public static int version;
++
++    public static void init(File configFile) {
++        CONFIG_FILE = configFile;
++        config = new YamlConfiguration();
++        try {
++            config.load(CONFIG_FILE);
++        } catch (IOException ignore) {
++        } catch (InvalidConfigurationException ex) {
++            Bukkit.getLogger().log(Level.SEVERE, "Could not load rales.yml, please correct your syntax errors", ex);
++            throw Throwables.propagate(ex);
++        }
++        config.options().header(HEADER);
++        config.options().copyDefaults(true);
++
++        commands = new HashMap<>();
++        commands.put("rales", new RalesCommand("rales"));
++
++        version = getInt("config-version", 1);
++        set("config-version", 1);
++
++        readConfig(RalesConfig.class, null);
++
++        Blocks.rebuildCache();
++    }
++
++    protected static void log(Level level, String s) {
++        Bukkit.getLogger().log(level, s);
++    }
++
++    public static void registerCommands() {
++        for (Map.Entry<String, Command> entry : commands.entrySet()) {
++            MinecraftServer.getServer().server.getCommandMap().register(entry.getKey(), "Rales", entry.getValue());
++        }
++    }
++
++    static void readConfig(Class<?> clazz, Object instance) {
++        for (Method method : clazz.getDeclaredMethods()) {
++            if (Modifier.isPrivate(method.getModifiers())) {
++                if (method.getParameterTypes().length == 0 && method.getReturnType() == Void.TYPE) {
++                    try {
++                        method.setAccessible(true);
++                        method.invoke(instance);
++                    } catch (InvocationTargetException ex) {
++                        throw Throwables.propagate(ex.getCause());
++                    } catch (Exception ex) {
++                        Bukkit.getLogger().log(Level.SEVERE, "Error invoking " + method, ex);
++                    }
++                }
++            }
++        }
++
++        try {
++            config.save(CONFIG_FILE);
++        } catch (IOException ex) {
++            Bukkit.getLogger().log(Level.SEVERE, "Could not save " + CONFIG_FILE, ex);
++        }
++    }
++
++    private static void set(String path, Object val) {
++        config.addDefault(path, val);
++        config.set(path, val);
++    }
++
++    private static String getString(String path, String def) {
++        config.addDefault(path, def);
++        return config.getString(path, config.getString(path));
++    }
++
++    private static boolean getBoolean(String path, boolean def) {
++        config.addDefault(path, def);
++        return config.getBoolean(path, config.getBoolean(path));
++    }
++
++    private static double getDouble(String path, double def) {
++        config.addDefault(path, def);
++        return config.getDouble(path, config.getDouble(path));
++    }
++
++    private static int getInt(String path, int def) {
++        config.addDefault(path, def);
++        return config.getInt(path, config.getInt(path));
++    }
++
++    public static boolean enabled = true;
++    public static String title = "ようこそ！";
++    public static String subTitle = "サーバーに参加しました。";
++    public static int fadeIn = 20;
++    public static int showTime = 70;
++    public static int fadeOut = 20;
++
++    private static void welcomeTitle() {
++        enabled = getBoolean("settings.wt.enabled", enabled);
++        title = getString("settings.wt.title", title);
++        subTitle = getString("settings.wt.sub-title", subTitle);
++        fadeIn = getInt("settings.wt.fade-in", fadeIn);
++        showTime = getInt("settings.wt.show-time", showTime);
++        fadeOut = getInt("settings.wt.fade-out", fadeOut);
++    }
++
++        private static <T> List<?> getList(String path, T def) {
++        config.addDefault(path, def);
++        return config.getList(path, config.getList(path));
++    }
++
++    static Map<String, Object> getMap(String path, Map<String, Object> def) {
++        if (def != null && config.getConfigurationSection(path) == null) {
++            config.addDefault(path, def);
++            return def;
++        }
++        return toMap(config.getConfigurationSection(path));
++    }
++
++    private static Map<String, Object> toMap(ConfigurationSection section) {
++        ImmutableMap.Builder<String, Object> builder = ImmutableMap.builder();
++        if (section != null) {
++            for (String key : section.getKeys(false)) {
++                Object obj = section.get(key);
++                if (obj != null) {
++                    builder.put(key, obj instanceof ConfigurationSection val ? toMap(val) : obj);
++                }
++            }
++        }
++        return builder.build();
++    }
++}
+diff --git a/src/main/java/tech/raic/wtp/PlayerJoined.java b/src/main/java/tech/raic/wtp/PlayerJoined.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..c29e2f9db7114657b1cf6754b1a8c1488d53cd34
+--- /dev/null
++++ b/src/main/java/tech/raic/wtp/PlayerJoined.java
+@@ -0,0 +1,19 @@
++package tech.raic.wtp;
++
++import net.md_5.bungee.api.ChatColor;
++import org.bukkit.entity.Player;
++import tech.raic.RalesConfig;
++
++public class PlayerJoined {
++    public void onPlayerJoin(Player player) {
++        RalesConfig ralesConfig = new RalesConfig();
++        String title = ralesConfig.title;
++        String subTitle = ralesConfig.subTitle;
++        int fadeIn = ralesConfig.fadeIn;
++        int showTime = ralesConfig.showTime;
++        int fadeOut = ralesConfig.fadeOut;
++
++        player.sendTitle(ChatColor.translateAlternateColorCodes('&', title),
++            ChatColor.translateAlternateColorCodes('&', subTitle), fadeIn, showTime, fadeOut);
++    }
++}
